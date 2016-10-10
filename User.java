@@ -10,6 +10,7 @@ public class User {
 	
 	// get alerts for the user
 	// overall time complexity: O(nlogn)  
+	// space complexity: O(n)
 	public  static List<Alert> getAlerts(List<Transaction> txns){
 		// store map such that if transaction is BUY then add 1 else subtract 1
 		HashMap<String, Integer> alerts = new HashMap<String, Integer>();
@@ -45,6 +46,9 @@ public class User {
 				// this means value = 0 , then simply ignore
 			}
 		}
+		// let hashmap be collected by garbage collector after putting into sortAlerts
+		alerts = null;
+			
 		// O(nlogn)
 		Collections.sort(sortedAlerts); // sort list 
 		return sortedAlerts;
