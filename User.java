@@ -11,6 +11,7 @@ public class User {
 	// get alerts for the user
 	// overall time complexity: O(nlogn)  
 	public  static List<Alert> getAlerts(List<Transaction> txns){
+		// store map such that if transaction is BUY then add 1 else subtract 1
 		HashMap<String, Integer> alerts = new HashMap<String, Integer>();
 		for (Transaction transaction : txns) {
 			// if ticker exists in hashmap then update the value
@@ -36,13 +37,10 @@ public class User {
 		ArrayList<Alert> sortedAlerts = new ArrayList<Alert>();
 		
 		for(String key: alerts.keySet()){
-			String buyOrSell;
 			if(alerts.get(key) < 0){
-				buyOrSell = (alerts.get(key) < 0) ? "SELL" : "BUY";  
-				sortedAlerts.add(new Alert(Math.abs(alerts.get(key)), buyOrSell, key));
+				sortedAlerts.add(new Alert(Math.abs(alerts.get(key)), "SELL", key));
 			} else if(alerts.get(key) > 0){
-				buyOrSell = (alerts.get(key) < 0) ? "SELL" : "BUY";  
-				sortedAlerts.add(new Alert(Math.abs(alerts.get(key)), buyOrSell, key));
+				sortedAlerts.add(new Alert(Math.abs(alerts.get(key)), "BUY", key));
 			} else {
 				// this means value = 0 , then simply ignore
 			}
